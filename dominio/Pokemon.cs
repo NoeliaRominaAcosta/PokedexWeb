@@ -18,5 +18,6 @@ namespace dominio
         public string UrlImagen { get; set; }
         public Elemento Tipo { get; set; }
         public Elemento Debilidad { get; set; }
+        public int Activo { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace negocio
             SqlDataReader lector; //obtengo un objeto, no se instancia
             try
             {
-                conexion.ConnectionString = "server=DESKTOP-BEH97V1\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
+                conexion.ConnectionString = "server=NOELIA\\NOELIA; database=POKEDEX_DB; integrated security=true";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad from POKEMONS P,ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad AND P.Activo = 1"; //consulta sql
+                comando.CommandText = "Select P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.TipoId, P.DebilidadId from POKEMONS P,ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.TipoId AND D.Id = P.DebilidadId AND P.Activo = 1"; //consulta sql
                 comando.Connection = conexion; //ejecuta el comando en la conexion que establezco
 
                 conexion.Open();
@@ -45,10 +45,10 @@ namespace negocio
                     }
 
                     aux.Tipo = new Elemento();
-                    aux.Tipo.Id = (int)lector["IdTipo"];
+                    aux.Tipo.Id = (int)lector["TipoId"];
                     aux.Tipo.Descripcion = (string)lector["Tipo"]; //tipo es un objeto sin instancia por eso se pone  aux.Tipo = new Elemento();
                     aux.Debilidad = new Elemento();
-                    aux.Debilidad.Id = (int)lector["IdDebilidad"];
+                    aux.Debilidad.Id = (int)lector["DebilidadId"];
                     aux.Debilidad.Descripcion = (string)lector["Debilidad"];
                     lista.Add(aux); //agrego el pokemon a la lista
                 }
@@ -63,7 +63,46 @@ namespace negocio
             }
             
         }
+        public List<Pokemon> listarConSP()
+        {
+            List<Pokemon> lista = new List<Pokemon>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                //string consulta = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1";
+                //datos.setearConsulta(consulta);
+                datos.setearProcedimiento("storedListar");
+                
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Pokemon aux = new Pokemon();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Numero = datos.Lector.GetInt32(0);
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    if (!(datos.Lector["UrlImagen"] is DBNull))
+                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
 
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.Id = (int)datos.Lector["TipoId"];
+                    aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.Id = (int)datos.Lector["DebilidadId"];
+                    aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+
+                    aux.Activo = (int)datos.Lector["Activo"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public void agregar(Pokemon poke)
         {
             //conecta a db
@@ -72,8 +111,8 @@ namespace negocio
             {
                 //setear consulta
                 datos.setearConsulta("INSERT INTO POKEMONS (Numero,Nombre, Descripcion, Activo, IdTipo, IdDebilidad, UrlImagen)values(" + poke.Numero + ",'"+ poke.Nombre +"','" + poke.Descripcion +"',1, @IdTipo, @IdDebilidad, @UrlImagen)");
-                datos.setearParametro("@idTipo", poke.Tipo.Id);
-                datos.setearParametro("@IdDebilidad", poke.Debilidad.Id);
+                datos.setearParametro("@TipoId", poke.Tipo.Id);
+                datos.setearParametro("@DebilidadId", poke.Debilidad.Id);
                 datos.setearParametro("@UrlImagen", poke.UrlImagen);
                 datos.ejecutarAccion();
             }
@@ -98,8 +137,8 @@ namespace negocio
                 datos.setearParametro("@Nombre", poke.Nombre);
                 datos.setearParametro("@Descripcion", poke.Descripcion);
                 datos.setearParametro("@UrlImagen", poke.UrlImagen);
-                datos.setearParametro("@IdTipo", poke.Tipo.Id);
-                datos.setearParametro("@IdDebilidad", poke.Debilidad.Id);
+                datos.setearParametro("@TipoId", poke.Tipo.Id);
+                datos.setearParametro("@DebilidadId", poke.Debilidad.Id);
                 datos.setearParametro("@Id", poke.Id);
 
                 datos.ejecutarAccion();

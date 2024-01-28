@@ -19,13 +19,19 @@ namespace negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server= DESKTOP-BEH97V1\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true");
+            conexion = new SqlConnection("server=NOELIA\\NOELIA; database=POKEDEX_DB; integrated security=true");
             comando = new SqlCommand();
         }
         public void setearConsulta(string consulta)
         {
             comando.CommandType = System.Data.CommandType.Text;
             comando.CommandText = consulta;
+        }
+        public void setearProcedimiento(string sp)
+        {
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            comando.CommandText = sp;
+
         }
         public void ejecutarLectura()
         {

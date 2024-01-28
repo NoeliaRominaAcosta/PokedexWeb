@@ -10,3 +10,9 @@ C:\Users\CONECTIA BA\Desktop\Pokedex_maxiprograma\dominio\obj\Debug\dominio.cspr
 C:\Users\CONECTIA BA\Desktop\Pokedex_maxiprograma\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
 C:\Users\CONECTIA BA\Desktop\Pokedex_maxiprograma\dominio\obj\Debug\dominio.dll
 C:\Users\CONECTIA BA\Desktop\Pokedex_maxiprograma\dominio\obj\Debug\dominio.pdb
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\bin\Debug\dominio.dll
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\bin\Debug\dominio.pdb
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\obj\Debug\dominio.dll
+C:\Users\CONECTIA BA\Desktop\PrimeraPagina\dominio\obj\Debug\dominio.pdb
