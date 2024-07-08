@@ -16,10 +16,20 @@ namespace PrimeraPagina
 		{
 			PokemonNegocio negocio = new PokemonNegocio();
 			ListaPokemon = negocio.listarConSP();
-			repRepetidor.DataSource = ListaPokemon;
-			repRepetidor.DataBind();
+			if (!IsPostBack)
+			{
+				repRepetidor.DataSource = ListaPokemon;
+				repRepetidor.DataBind();
+			}
 			
 			
+		}
+
+		protected void btnEjemplo_Click(object sender, EventArgs e)
+		{
+			string valor = ((Button)sender).CommandArgument; 
+
+			//lo castea para poder convertirlo en boton. El commandArgument es el valor que le pasa en el argumento = ID
 		}
 	}
 }

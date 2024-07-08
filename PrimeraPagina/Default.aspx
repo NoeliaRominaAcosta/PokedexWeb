@@ -9,13 +9,15 @@
 		<asp:Repeater runat="server" id="repRepetidor">
 			<ItemTemplate>
 				<div class="card m-2" style="width: 18rem;">
+					<%-- los atributos que le pasa al eval están en la lista repRepetidor que asigna listaPokemon en Default.aspx.cs -- repRepetidor.DataSource = ListaPokemon; --%>
 					<img src="<%#Eval("UrlImagen")%>" class="card-img-top" alt="...">
 					<div class="card-body p-2 m-2">
 						<h5 class="card-title"><%#Eval("Nombre") %></h5>
 						<p class="card-text"><%#Eval("Tipo") %></p>
 						<p class="card-text"><%#Eval("Descripcion") %></p>
 						<p class="card-text"><%#Eval("Debilidad")%></p>
-						<a href="DetallePokemon.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver</a>
+<%--						<a href="DetallePokemon.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver detalle</a>--%>
+						<asp:Button OnClick="btnEjemplo_Click" Text="Ver" runat="server" cssclass="btn btn-primary" ID="btnEjemplo" CommandArgument='<%#Eval("Id") %>' CommandName="Id"/>
 					</div>
 				</div>
 			</ItemTemplate>
